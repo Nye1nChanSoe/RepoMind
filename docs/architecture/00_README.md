@@ -14,3 +14,4 @@ Suggested reading order:
 7. `07_ast_strategy.md`
 8. `08_model_routing.md`
 9. `09_ui_architecture.md`
+10. `10_testing_strategy.md`

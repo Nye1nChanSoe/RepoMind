@@ -10,6 +10,7 @@ Responsibility:
 Current implementation:
 - supports extension-based source file discovery
 - does not implement `.ipynb` notebook ingestion yet
+- failures are surfaced in the UI as stage-specific runtime errors
 
 Output:
 - local repository path
@@ -29,6 +30,7 @@ Current implementation:
 - AST path for Python, JavaScript, TypeScript, and Go
 - line-based fallback for other detected source files
 - notebook chunking is planned but not implemented yet
+- failures are surfaced in the UI as stage-specific runtime errors
 
 Output:
 - chunk objects with content and metadata
@@ -45,6 +47,7 @@ Output:
 Current implementation:
 - one Chroma collection per repository URL hash in the Streamlit app
 - the collection is cleared and rebuilt on each run
+- failures are surfaced in the UI as stage-specific runtime errors
 
 ## Stage 4: Retrieval
 
@@ -61,6 +64,7 @@ Current implementation:
 - formatted context is used for the understand step
 - formatted context is reused for the generate step
 - the plan step currently uses understanding plus the user request
+- zero retrieval results are surfaced as a user-facing runtime error in the UI
 
 ## Stage 5: Understand
 
@@ -74,6 +78,7 @@ Output:
 
 Current implementation:
 - powered by `MODEL_UNDERSTAND`
+- failures are surfaced in the UI as stage-specific runtime errors
 
 ## Stage 6: Plan
 
@@ -89,6 +94,7 @@ Output:
 Current implementation:
 - powered by `MODEL_PLAN`
 - expected to return JSON and parsed locally
+- failures are surfaced in the UI as stage-specific runtime errors
 
 ## Stage 7: Generate
 
@@ -106,3 +112,4 @@ Current implementation:
 - powered by `MODEL_GENERATE`
 - explanation is returned as part of the generate step response
 - diff text is accepted from the model or generated locally as a fallback
+- failures are surfaced in the UI as stage-specific runtime errors

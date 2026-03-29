@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-PROMPTS_DIR = Path(__file__).resolve().parent.parent / "prompts"
+PROMPTS_DIR = Path(__file__).resolve().parent.parent.parent / "prompts"
 
 
 def test_plan_prompt_formats_without_key_error() -> None:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import traceback
 from pathlib import Path
 
 import streamlit as st
@@ -43,37 +44,56 @@ def main() -> None:
         return
 
     collection_name = f"repomind-{_stable_id(repo_url)}"
+    context = ""
+    current_stage = "pipeline startup"
 
     with st.status("Running RepoMind pipeline...", expanded=True) as status:
-        status.update(label="Cloning repository")
-        repo_path = clone_repo(repo_url)
+        try:
+            current_stage = "cloning repository"
+            status.update(label="Cloning repository")
+            repo_path = clone_repo(repo_url)
 
-        status.update(label="Discovering files")
-        filepaths = walk_files(repo_path)
-        if not filepaths:
-            st.error("No supported source files were found in the repository.")
+            current_stage = "discovering files"
+            status.update(label="Discovering files")
+            filepaths = walk_files(repo_path)
+            if not filepaths:
+                raise RuntimeError("No supported source files were found in the repository.")
+
+            current_stage = "chunking files"
+            status.update(label="Chunking files")
+            chunks = []
+            for filepath in filepaths:
+                repo_relative = str(Path(filepath).relative_to(repo_path))
+                for chunk in chunk_file(filepath):
+                    chunk.file_path = repo_relative
+                    chunks.append(chunk)
+
+            if not chunks:
+                raise RuntimeError("Chunking completed, but no chunks were produced.")
+
+            current_stage = "embedding and indexing"
+            status.update(label="Embedding and indexing")
+            clear_collection(collection_name)
+            embed_chunks(chunks, collection_name)
+
+            current_stage = "retrieving relevant context"
+            status.update(label="Retrieving relevant context")
+            retrieved = retrieve(request, collection_name, top_k=int(top_k))
+            if not retrieved:
+                raise RuntimeError(
+                    "No relevant chunks were retrieved. Try a narrower request or a supported repository."
+                )
+            context = format_context(retrieved)
+
+            current_stage = "running reasoning pipeline"
+            status.update(label="Running reasoning pipeline")
+            output = run_pipeline(context, request)
+
+            status.update(label="Done", state="complete")
+        except Exception as exc:
+            status.update(label=f"Failed during {current_stage}", state="error")
+            _render_pipeline_error(current_stage, exc, context=context)
             return
-
-        status.update(label="Chunking files")
-        chunks = []
-        for filepath in filepaths:
-            repo_relative = str(Path(filepath).relative_to(repo_path))
-            for chunk in chunk_file(filepath):
-                chunk.file_path = repo_relative
-                chunks.append(chunk)
-
-        status.update(label="Embedding and indexing")
-        clear_collection(collection_name)
-        embed_chunks(chunks, collection_name)
-
-        status.update(label="Retrieving relevant context")
-        retrieved = retrieve(request, collection_name, top_k=int(top_k))
-        context = format_context(retrieved)
-
-        status.update(label="Running reasoning pipeline")
-        output = run_pipeline(context, request)
-
-        status.update(label="Done", state="complete")
 
     st.subheader("Relevant Files")
     for file_path in output.relevant_files:
@@ -99,6 +119,18 @@ def main() -> None:
 
 def _stable_id(value: str) -> str:
     return hashlib.sha1(value.encode("utf-8")).hexdigest()[:12]
+
+
+def _render_pipeline_error(stage_label: str, exc: Exception, context: str = "") -> None:
+    st.error(f"RepoMind failed during: {stage_label}")
+    st.write(str(exc) or exc.__class__.__name__)
+
+    if context:
+        with st.expander("Retrieved Context Before Failure"):
+            st.code(context)
+
+    with st.expander("Technical Details"):
+        st.code(traceback.format_exc())
 
 
 if __name__ == "__main__":

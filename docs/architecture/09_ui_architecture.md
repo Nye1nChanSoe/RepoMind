@@ -22,6 +22,7 @@ Current implementation note:
 - proposed diffs
 - explanation
 - retrieved context
+- stage-specific error reporting
 
 ## UI Principles
 
@@ -29,6 +30,7 @@ Current implementation note:
 - make intermediate outputs visible by default or one click away
 - keep raw diff output easy to scan
 - expose progress across pipeline stages
+- report failures at the stage where they happen
 
 ## Recommended Layout
 
@@ -42,3 +44,15 @@ Current implementation note:
 - do not hide retrieval context entirely
 - do not imply that generated changes were applied automatically
 - distinguish clearly between current-code understanding and proposed change
+- prefer readable stage-level errors over raw tracebacks in the main UI
+
+## Error Handling
+
+The UI should treat pipeline failures as part of the product experience.
+
+Current implementation:
+- wraps the major pipeline steps in stage-aware error handling
+- shows a friendly message naming the failed stage
+- shows the exception message directly
+- exposes traceback details in a technical-details expander
+- shows retrieved context in a separate expander when failure happens after retrieval

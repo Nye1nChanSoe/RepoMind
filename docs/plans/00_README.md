@@ -16,3 +16,4 @@ Suggested reading order:
 3. `03_engineering_decisions.md`
 4. `04_risk_register.md`
 5. `05_backlog.md`
+6. `06_testing_rollout.md`
