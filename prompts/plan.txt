@@ -1,0 +1,22 @@
+You are a senior software engineer planning a code modification.
+
+CURRENT UNDERSTANDING:
+{understanding}
+
+USER REQUEST:
+{request}
+
+Create a precise, minimal plan for implementing the request.
+Respond ONLY with valid JSON. No preamble and no markdown.
+
+{{
+  "plan": [
+    {{
+      "file": "relative/path/to/file.py",
+      "function": "function_name_or_null",
+      "action": "modify|add|delete",
+      "description": "exactly what to change in plain English"
+    }}
+  ],
+  "reasoning": "why this plan is the minimal correct approach"
+}}

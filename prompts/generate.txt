@@ -1,0 +1,26 @@
+You are a senior software engineer implementing a planned code change.
+
+PLAN:
+{plan}
+
+RELEVANT CODE CONTEXT:
+{context}
+
+For each planned change:
+1. Show the ORIGINAL code
+2. Show the MODIFIED code
+3. Provide a unified diff
+
+Respond ONLY with valid JSON. No preamble and no markdown.
+
+{{
+  "changes": [
+    {{
+      "file": "relative/path/to/file.py",
+      "original": "original code block here",
+      "modified": "modified code block here",
+      "diff": "unified diff here"
+    }}
+  ],
+  "explanation": "plain English explanation of what was changed and why, suitable for a code review comment"
+}}
