@@ -26,7 +26,7 @@ def main() -> None:
     st.caption("Context-aware code change assistant")
 
     with st.sidebar:
-        repo_url = st.text_input("GitHub Repo URL")
+        repo_url = st.text_input("Repository URL")
         request = st.text_area("Request", height=160)
         top_k = st.number_input(
             "Top-K chunks",
