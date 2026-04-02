@@ -49,8 +49,10 @@ The flow is:
 2. Chunk files into symbol-aware or fallback blocks.
 3. Embed chunks locally and store them in Chroma.
 4. Retrieve top-k chunks for the user request.
-5. Run the three-step reasoning pipeline in `core/agent.py`.
-6. Render understanding, plan, changes, and explanation in Streamlit.
+5. Run the staged reasoning pipeline in `core/agent.py`.
+6. Ground plan generation in both structured understanding output and retrieved code context.
+7. Run a lightweight verification pass before final presentation.
+8. Render understanding, plan, verifier warnings, changes, and explanation in Streamlit.
 
 ## Shared Architectural Rules
 
@@ -59,3 +61,4 @@ The flow is:
 - keep repository context small on purpose
 - treat notebook support as planned, not implemented
 - surface failures as stage-specific runtime errors instead of hiding them
+- keep simple tuning values in component JSON where that reduces unnecessary code edits

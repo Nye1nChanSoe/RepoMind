@@ -30,8 +30,8 @@ def test_small_repo_flow_with_mocked_models(tmp_path: Path, monkeypatch) -> None
 
     responses = iter(
         [
-            "The endpoint returns all users through a helper call.",
-            '{"plan": [{"file": "app.py", "function": "list_users", "action": "modify", "description": "add pagination parameters"}], "reasoning": "Minimal route-level update."}',
+            '{"summary": "The endpoint returns all users through a helper call.", "facts": [{"claim": "list_users returns get_users().", "file": "app.py", "lines": "1-2", "evidence": "The function body is a direct get_users() call."}], "inferences": [], "unknowns": []}',
+            '{"plan": [{"file": "app.py", "function": "list_users", "action": "modify", "description": "add pagination parameters", "evidence_files": ["app.py"], "confidence": "high"}], "reasoning": "Minimal route-level update.", "blocked_by_missing_context": false}',
             '{"changes": [{"file": "app.py", "original": "def list_users():\\n    return get_users()", "modified": "def list_users(limit=20, offset=0):\\n    return get_users(limit, offset)", "diff": ""}], "explanation": "Added pagination arguments to the route."}',
         ]
     )
@@ -47,3 +47,4 @@ def test_small_repo_flow_with_mocked_models(tmp_path: Path, monkeypatch) -> None
     assert output.relevant_files == ["app.py"]
     assert output.plan[0].function == "list_users"
     assert output.changes[0].diff
+    assert output.verifier_warnings == []

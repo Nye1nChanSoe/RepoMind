@@ -11,6 +11,7 @@ The Streamlit UI component collects user input, executes the end-to-end pipeline
   - repository URL
   - request text
   - top-k retrieval count
+- the default top-k value is read from retrieval component config unless an environment override is present
 - clicking `Analyze` triggers the pipeline in sequence:
   - `clone_repo()`
   - `walk_files()`
@@ -20,8 +21,10 @@ The Streamlit UI component collects user input, executes the end-to-end pipeline
   - `run_pipeline()`
 - a Streamlit status block shows stage-by-stage progress and failure stage
 - outputs are rendered as:
+  - retrieved files
   - relevant files
   - understanding
+  - verifier warnings
   - plan
   - proposed changes (diff blocks)
   - explanation
@@ -35,4 +38,5 @@ The Streamlit UI component collects user input, executes the end-to-end pipeline
 - no persistent session history of prior runs
 - no UI-level caching for repeated runs on unchanged repositories
 - no partial-stage rerun controls
-
+- no current summary surface for evidence confidence or unsupported-claim warnings
+- retrieval diagnostics are still lightweight and do not yet expose ranking scores

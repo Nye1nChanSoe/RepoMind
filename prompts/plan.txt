@@ -1,12 +1,17 @@
 You are a senior software engineer planning a code modification.
 
-CURRENT UNDERSTANDING:
+CURRENT UNDERSTANDING JSON:
 {understanding}
+
+RETRIEVED CODE CONTEXT:
+{context}
 
 USER REQUEST:
 {request}
 
 Create a precise, minimal plan for implementing the request.
+Stay grounded in the retrieved code and the understanding facts.
+If the context is insufficient, prefer returning an empty plan and set `blocked_by_missing_context` to true.
 Respond ONLY with valid JSON. No preamble and no markdown.
 
 {{
@@ -15,8 +20,11 @@ Respond ONLY with valid JSON. No preamble and no markdown.
       "file": "relative/path/to/file.py",
       "function": "function_name_or_null",
       "action": "modify|add|delete",
-      "description": "exactly what to change in plain English"
+      "description": "exactly what to change in plain English",
+      "evidence_files": ["relative/path/to/file.py"],
+      "confidence": "low|medium|high"
     }}
   ],
-  "reasoning": "why this plan is the minimal correct approach"
+  "reasoning": "why this plan is the minimal correct approach",
+  "blocked_by_missing_context": false
 }}

@@ -9,9 +9,31 @@ USER REQUEST:
 RETRIEVED CODE:
 {context}
 
-Respond in plain English. Be concise. Focus on:
-- What the relevant functions or files currently do
-- Any obvious limitations or patterns you notice
-- The relationships between the retrieved pieces of code
+Rules:
+- Separate observed facts from inference.
+- Every substantive fact must cite the file and line range already present in the retrieved code.
+- If the code does not prove something, put it in `unknowns` or `inferences` instead of stating it as fact.
+- Do not suggest changes yet.
+- Respond ONLY with valid JSON. No preamble and no markdown.
 
-Do NOT suggest changes yet. Only describe what exists.
+{{
+  "summary": "brief plain-English summary of what the retrieved code appears to do",
+  "facts": [
+    {{
+      "claim": "what is directly supported by the retrieved code",
+      "file": "relative/path.ext",
+      "lines": "10-24",
+      "evidence": "short quote or description of the specific retrieved evidence"
+    }}
+  ],
+  "inferences": [
+    {{
+      "claim": "a likely conclusion that is not fully proven by the retrieved code",
+      "confidence": "low|medium|high",
+      "basis": ["relative/path.ext:10-24"]
+    }}
+  ],
+  "unknowns": [
+    "important missing context or ambiguity"
+  ]
+}}

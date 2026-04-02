@@ -22,7 +22,15 @@ def render_plan_steps(plan_steps: list[Any]) -> str:
     rendered = []
     for index, step in enumerate(plan_steps, start=1):
         function_name = getattr(step, "function", None) or "file-level change"
+        confidence = getattr(step, "confidence", None)
+        evidence_files = getattr(step, "evidence_files", None) or []
+        extras = []
+        if confidence:
+            extras.append(f"confidence={confidence}")
+        if evidence_files:
+            extras.append(f"evidence={','.join(evidence_files)}")
+        extras_text = f" [{' | '.join(extras)}]" if extras else ""
         rendered.append(
-            f"{index}. {step.action} {step.file} ({function_name}) - {step.description}"
+            f"{index}. {step.action} {step.file} ({function_name}) - {step.description}{extras_text}"
         )
     return "\n".join(rendered)

@@ -18,7 +18,7 @@ Use this after completing all per-repo reports.
 |---|------------|------|------|-------|-------|
 | 1 | evanw/esbuild | Tooling (bundler/minifier) | Large | Go | Repo 1 complete |
 | 2 | markedjs/marked | Library (markdown parser/renderer) | Medium | TypeScript/JS | Repo 2 complete |
-| 3 |            |      |      |       |       |
+| 3 | Nye1nChanSoe/RentalDemo | Application (car rental) | Small/Medium | TypeScript/Next.js | Repo 3 complete |
 | 4 |            |      |      |       |       |
 | 5 |            |      |      |       |       |
 
@@ -28,7 +28,7 @@ Use this after completing all per-repo reports.
 |------------|-------------|-------|---------------|------------------------|------------------------|---------|
 | evanw/esbuild | 2 | 2 | 2 | 1 | 2 | 1.8 |
 | markedjs/marked | 3 | 2 | 3 | 2 | 3 | 2.6 |
-| Repo 3     |             |       |               |                        |                        |         |
+| Nye1nChanSoe/RentalDemo | 2 | 1 | 2 | 2 | 2 | 1.8 |
 | Repo 4     |             |       |               |                        |                        |         |
 | Repo 5     |             |       |               |                        |                        |         |
 

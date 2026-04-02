@@ -7,7 +7,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from utils.component_config import load_component_config
 from utils.languages import detect_language, is_ast_supported
+
+
+DEFAULT_CHUNKING_CONFIG = {
+    "fallback_max_lines": 60,
+    "fallback_overlap": 10,
+}
 
 
 @dataclass
@@ -75,8 +82,16 @@ def ast_chunk(filepath: str, language: str) -> list[Chunk]:
     return chunks
 
 
-def fallback_chunk(filepath: str, max_lines: int = 60, overlap: int = 10) -> list[Chunk]:
+def fallback_chunk(
+    filepath: str,
+    max_lines: int | None = None,
+    overlap: int | None = None,
+) -> list[Chunk]:
     """Chunk a file by lines when AST parsing is unavailable."""
+    config = load_component_config("chunking", DEFAULT_CHUNKING_CONFIG)
+    max_lines = int(max_lines or config["fallback_max_lines"])
+    overlap = int(overlap if overlap is not None else config["fallback_overlap"])
+
     source = Path(filepath).read_text(encoding="utf-8", errors="ignore")
     lines = source.splitlines()
     language = detect_language(filepath) or "text"

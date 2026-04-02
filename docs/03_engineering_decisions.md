@@ -68,3 +68,35 @@ Why:
 
 Tradeoff:
 - fewer external-tool integration benefits in the first version
+
+## Decision: Prefer evidence-carrying intermediate outputs
+
+Why:
+- downstream steps should inherit citations and uncertainty, not only prose summaries
+- this reduces hallucination compounding across staged reasoning
+- it makes evaluation easier because claims can be traced back to retrieved code
+
+Tradeoff:
+- prompt and schema complexity increase
+- the UI must render richer intermediate data cleanly
+
+## Decision: Verify generated output before presentation
+
+Why:
+- final explanations and file targets should be checked against retrieved evidence
+- lightweight verification catches unsupported confidence without requiring a second full generation pass
+
+Tradeoff:
+- extra orchestration and validation logic
+- some outputs will become more cautious or partially blocked
+
+## Decision: Move simple tuning values into component JSON
+
+Why:
+- chunk sizes, retrieval limits, and request settings change more often than core logic
+- moving these into JSON reduces code churn for small operational tuning
+- contributors can adjust defaults manually without editing implementation files
+
+Tradeoff:
+- configuration sprawl becomes a risk if logic-heavy behavior is moved out of code
+- config validation still needs to stay conservative and fallback-safe

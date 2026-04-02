@@ -16,3 +16,8 @@
 12. Broader language coverage
 13. Comparison of multiple generation models for the same plan
 14. Lightweight evaluation datasets for regression testing
+15. Evidence-based understanding JSON with citations and unknowns
+16. Ground plan generation in retrieved code context, not summary text alone
+17. Lightweight verifier pass for unsupported claims and file drift
+18. Hybrid retrieval with lexical, path, and symbol boosts
+19. Neighbor chunk expansion for better local context around matched symbols

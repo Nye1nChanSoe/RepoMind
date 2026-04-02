@@ -2,125 +2,127 @@
 
 Use this template once per repository.
 
+This template is for the actual evaluation flow:
+- choose one repository
+- paste one real feature request or GitHub issue
+- run the RepoMind pipeline with retrieved repo context
+- have an external LLM judge evaluate the pipeline response
+
 ---
 
-## 1) Repository Metadata
+## 1) Repository
 
 - Repository name:
 - Repository URL:
 - Commit/branch evaluated:
 - Repo size estimate (small/medium/large):
 - Primary language(s):
-- Domain type (library/service/app/framework/tooling):
 - Evaluation date:
-- Evaluator:
 
-## 2) Evaluation Setup
+## 2) Input Used
 
-- Access mode (local clone/fork/upstream):
-- Context provided to agent (if any):
-- Time budget:
-- Constraints used:
+### User Request (Copied As-Is)
 
-## 3) Prompt Suite Used
-
-Use the same prompts across all repositories.
-
-### Prompt A: Architecture Inference
-
-```
-Explain this repository's architecture: core modules, data flow, runtime boundaries, and dependency directions. Include uncertain areas explicitly.
+```text
+Paste the exact feature request or issue text here.
 ```
 
-### Prompt B: Domain/Business Inference
+### Pipeline Run Settings
 
-```
-Infer the product/domain purpose and intended users from this codebase. Distinguish direct evidence from assumptions.
-```
+- Top-K chunks:
+- Any extra constraints:
 
-### Prompt C: Risk and Bug Hotspot Inference
+## 3) Pipeline Output
 
-```
-Identify likely risk areas and bug hotspots in this repo, with reasons tied to specific files or patterns.
-```
-
-### Prompt D: Missing Docs/Tests Inference
-
-```
-Infer which documentation and tests are most missing or weak, and prioritize the top gaps.
-```
-
-### Prompt E: First 3 Improvements
-
-```
-Recommend the first 3 high-impact improvements for this repository, each with rationale, effort estimate, and expected outcome.
-```
-
-## 4) Raw Outputs
-
-- Output A:
-- Output B:
-- Output C:
-- Output D:
-- Output E:
-
-## 5) Validation Against Ground Truth
-
-### 5.1 What Was Correct
+### Relevant Files
 
 - 
 
-### 5.2 What Was Partially Correct
+### Understanding
+
+```text
+Paste the pipeline understanding output here.
+```
+
+### Plan
+
+```text
+Paste the pipeline plan output here.
+```
+
+### Proposed Changes
+
+```text
+Paste the pipeline proposed changes summary here.
+```
+
+### Explanation
+
+```text
+Paste the pipeline explanation here.
+```
+
+### Verifier Warnings
 
 - 
 
-### 5.3 What Was Incorrect (Hallucinations/Errors)
+## 4) External Judge Setup
+
+- Judge model/system:
+- Judge role: external evaluator with no relation to RepoMind
+- Evaluation method: review the request, retrieved context summary, and pipeline response
+
+## 5) Judge Findings
+
+### What The Pipeline Got Right
+
+- 
+
+### What The Pipeline Got Wrong
+
+- 
+
+### Missing Context Or Unsupported Assumptions
 
 - 
 
 ## 6) Scoring (1-5)
 
-### 6.1 Correctness
+### Correctness
 
 - Score:
-- Justification:
+- Why:
 
-### 6.2 Depth
-
-- Score:
-- Justification:
-
-### 6.3 Actionability
+### Grounding
 
 - Score:
-- Justification:
+- Why:
 
-### 6.4 Hallucination Control
-
-- Score:
-- Justification:
-
-### 6.5 Confidence Calibration
+### Actionability
 
 - Score:
-- Justification:
+- Why:
 
-## 7) Confidence vs Reality
+### Hallucination Control
 
-- Where confidence matched actual certainty:
-- Where confidence was too high:
-- Where confidence was too low:
+- Score:
+- Why:
 
-## 8) Final Repo Score
+### Confidence Calibration
 
-- Weighted total (optional formula):
+- Score:
+- Why:
+
+## 7) Final Verdict
+
 - Overall score:
-- Pass/Needs improvement:
-
-## 9) Repo Conclusion
-
 - Inference level reached (surface/moderate/deep):
-- Most reliable inference category:
-- Weakest inference category:
-- Recommendation for production use on this repo:
+- Would this be safe to use as a first draft on this repo?:
+- Main reason for the verdict:
+
+## 8) Notes For Next Iteration
+
+- What would most improve results on this repo:
+- Prompt or retrieval issue noticed:
+- Worth retesting after the next system iteration?:
 

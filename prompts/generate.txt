@@ -11,6 +11,11 @@ For each planned change:
 2. Show the MODIFIED code
 3. Provide a unified diff
 
+Rules:
+- Stay within the files listed in the plan unless the plan itself clearly justifies otherwise.
+- Keep generated changes grounded in the retrieved code context.
+- If the retrieved context is incomplete, keep the explanation cautious and explicit about uncertainty.
+
 Respond ONLY with valid JSON. No preamble and no markdown.
 
 {{

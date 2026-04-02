@@ -17,3 +17,5 @@ The understand component explains current code behavior before any change planni
 - the output is plain English, not structured JSON
 - there is no automatic retry or fallback
 - failures propagate as runtime errors
+- downstream steps cannot distinguish observed facts from inference
+- unsupported claims are not explicitly separated from missing context

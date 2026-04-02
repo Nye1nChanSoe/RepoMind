@@ -61,6 +61,13 @@ Read these only when sequencing, tradeoffs, risks, or roadmap context matter:
 - `docs/03_engineering_decisions.md`
 - `docs/04_risk_register.md`
 
+### 5. Iteration history
+
+Read these when you need change-history context for recent architecture or pipeline improvements:
+- `docs/iterations/`
+
+Iteration docs are historical records and should not override current architecture or product contracts.
+
 ## Implementation Rule
 
 When documentation appears to conflict, use this order:

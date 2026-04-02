@@ -1,0 +1,22 @@
+{
+  "default_top_k": 10,
+  "candidate_multiplier": 5,
+  "neighbor_budget_divisor": 4,
+  "min_neighbor_budget": 1,
+  "max_context_characters": 18000,
+  "min_implementation_results": 3,
+  "implementation_role_bonus": 1.5,
+  "test_role_penalty": -1.25,
+  "docs_role_penalty": -1.0,
+  "dependency_role_penalty": -1.75,
+  "config_role_penalty": -0.5,
+  "bridge_bonus": 1.5,
+  "bridge_source_limit": 3,
+  "same_file_deepening_budget": 3,
+  "same_file_deepening_file_limit": 2,
+  "same_file_deepening_per_file": 2,
+  "retry_enabled": true,
+  "retry_top_k_increment": 2,
+  "retry_file_limit": 3,
+  "retry_symbol_limit": 6
+}

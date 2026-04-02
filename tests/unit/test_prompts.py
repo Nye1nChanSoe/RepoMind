@@ -7,12 +7,14 @@ PROMPTS_DIR = Path(__file__).resolve().parent.parent.parent / "prompts"
 def test_plan_prompt_formats_without_key_error() -> None:
     template = (PROMPTS_DIR / "plan.txt").read_text(encoding="utf-8")
     rendered = template.format(
-        understanding="Current code behavior",
+        understanding='{"summary": "Current code behavior"}',
+        context="relevant code here",
         request="Add pagination",
     )
 
     assert '"plan"' in rendered
     assert "{understanding}" not in rendered
+    assert "{context}" not in rendered
     assert "{request}" not in rendered
 
 
