@@ -21,9 +21,15 @@ This folder stores simple component-level tuning values in JSON so they can be c
 - `chunking.json`
 - `retrieval.json`
 - `llm.json`
+- `embedding.json`
 
 ## Retrieval Notes
 
 - `retrieval.json` can tune candidate expansion, context budget, simple file-role biasing, implementation-result minimums, same-file deepening, and retry behavior
 - file-role biasing can de-emphasize tests, docs, and dependency/vendor code when they are not part of the core implementation
 - use file-role penalties and bonuses carefully; these are heuristics, not hard routing rules
+
+## Embedding Notes
+
+- `embedding.json` controls the local embedding model and basic encode behavior
+- the default is chosen to be stronger than the original MiniLM baseline while still being reasonable for local laptop use

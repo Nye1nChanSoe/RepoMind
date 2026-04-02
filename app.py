@@ -27,7 +27,7 @@ from utils.output import render_plan_steps
 
 
 DEFAULT_RETRIEVAL_CONFIG = {
-    "default_top_k": 8,
+    "default_top_k": 10,
 }
 
 

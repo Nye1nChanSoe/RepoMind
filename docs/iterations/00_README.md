@@ -29,3 +29,4 @@ Each iteration should document:
 - `03_component_json_configuration/`
 - `04_repo_aware_retrieval_biasing/`
 - `05_same_file_deepening_and_retry_retrieval/`
+- `06_configurable_embedding_model_upgrade/`

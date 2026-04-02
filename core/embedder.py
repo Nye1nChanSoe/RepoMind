@@ -10,9 +10,14 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 
 from core.chunker import Chunk
+from utils.component_config import load_component_config
 
 
-DEFAULT_EMBED_MODEL = "all-MiniLM-L6-v2"
+DEFAULT_EMBEDDING_CONFIG = {
+    "model_name": "BAAI/bge-base-en-v1.5",
+    "normalize_embeddings": True,
+    "batch_size": 16,
+}
 
 
 def embed_chunks(
@@ -54,14 +59,31 @@ def clear_collection(name: str, persist_dir: str | None = None) -> None:
 
 def embed_texts(texts: list[str]) -> list[list[float]]:
     """Embed plain text strings using the configured local model."""
-    model = _load_model()
-    result = model.encode(texts)
+    config = get_embedding_settings()
+    model = _load_model(config["model_name"])
+    result = model.encode(
+        texts,
+        batch_size=int(config["batch_size"]),
+        normalize_embeddings=bool(config["normalize_embeddings"]),
+        show_progress_bar=False,
+    )
     return result.tolist()
 
 
-@lru_cache(maxsize=1)
-def _load_model() -> SentenceTransformer:
-    return SentenceTransformer(DEFAULT_EMBED_MODEL)
+def get_embedding_settings() -> dict[str, Any]:
+    """Return effective embedding settings from config and optional env overrides."""
+    config = load_component_config("embedding", DEFAULT_EMBEDDING_CONFIG)
+    model_name = os.getenv("EMBEDDING_MODEL", str(config["model_name"]))
+    return {
+        "model_name": model_name,
+        "normalize_embeddings": bool(config["normalize_embeddings"]),
+        "batch_size": int(config["batch_size"]),
+    }
+
+
+@lru_cache(maxsize=4)
+def _load_model(model_name: str) -> SentenceTransformer:
+    return SentenceTransformer(model_name)
 
 
 def _metadata_for_chunk(chunk: Chunk) -> dict[str, Any]:
