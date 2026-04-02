@@ -15,6 +15,7 @@ The entry point is this file. Each stage then has its own component folder under
 5. Understand
 6. Plan
 7. Generate
+8. Streamlit UI (presentation layer)
 
 ## Component Map
 
@@ -25,6 +26,7 @@ The entry point is this file. Each stage then has its own component folder under
 - `components/05_Understand/`
 - `components/06_Plan/`
 - `components/07_Generate/`
+- `components/08_Streamlit UI/`
 
 ## How To Read This Folder
 
